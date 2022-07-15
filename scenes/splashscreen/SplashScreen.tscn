@@ -13,15 +13,13 @@ script = ExtResource( 3 )
 next_screen = ExtResource( 2 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -270.0
-margin_right = 270.0
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+margin_left = 690.0
 margin_top = 270.0
-margin_right = 540.0
+margin_right = 1230.0
 margin_bottom = 810.0
 size_flags_horizontal = 0
 size_flags_vertical = 0

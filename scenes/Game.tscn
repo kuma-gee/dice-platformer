@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/dice/Dice.tscn" type="PackedScene" id=2]
@@ -8,7 +8,10 @@
 [ext_resource path="res://scenes/PlayerCamera.gd" type="Script" id=6]
 [ext_resource path="res://scenes/map/light.png" type="Texture" id=7]
 [ext_resource path="res://scenes/actions/Lighting.gd" type="Script" id=8]
+[ext_resource path="res://scenes/actions/EnemySpawner.gd" type="Script" id=9]
 [ext_resource path="res://shared/misc/DestroyOnLeave.gd" type="Script" id=10]
+[ext_resource path="res://scenes/enemies/Card.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/enemies/Chip.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Environment" id=5]
 background_mode = 4
@@ -25,7 +28,7 @@ glow_bicubic_upscale = true
 extents = Vector2( 19, 282 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 334, 186 )
+extents = Vector2( 363, 186 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -68,6 +71,12 @@ script = ExtResource( 10 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/DestroyOnLeave"]
 shape = SubResource( 6 )
 
+[node name="AirEnemySpawn" type="Position2D" parent="Camera2D"]
+position = Vector2( 348, -38 )
+
+[node name="GroundEnemySpawn" type="Position2D" parent="Camera2D"]
+position = Vector2( 344, 116 )
+
 [node name="Dice" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -237 )
 
@@ -81,6 +90,17 @@ texture_scale = 3.0
 script = ExtResource( 4 )
 min_speed = 20
 camera_path = NodePath("../../Camera2D")
+
+[node name="MediumAction" type="Node" parent="."]
+
+[node name="EnemySpawner" type="Timer" parent="MediumAction"]
+one_shot = true
+autostart = true
+script = ExtResource( 9 )
+air_enemy_scene = ExtResource( 11 )
+air_spawn_point_path = NodePath("../../Camera2D/AirEnemySpawn")
+ground_enemy_scene = ExtResource( 12 )
+ground_spawn_point_path = NodePath("../../Camera2D/GroundEnemySpawn")
 
 [node name="HighAction" type="Node" parent="."]
 

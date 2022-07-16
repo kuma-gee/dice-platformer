@@ -7,7 +7,7 @@ export var speed_diff := 20
 export var camera_path: NodePath
 onready var camera: PlayerCamera = get_node(camera_path)
 
-var logger = Logger.new("Cave")
+var logger = Logger.new("CameraSpeed")
 
 func buff():
 	camera.speed = max(camera.speed - speed_diff, min_speed)

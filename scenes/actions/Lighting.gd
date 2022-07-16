@@ -45,6 +45,6 @@ func _update_lighting():
 			global_light.energy = 0.5
 			player_light.energy = 1
 		4:
-			cave.set_torch_level(0)
+			cave.set_torch_level(1)
 			global_light.energy = 1
-			player_light.energy = 0
+			player_light.energy = 0.5

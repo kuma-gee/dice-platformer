@@ -4,7 +4,9 @@ onready var cave: Cave = $Cave
 onready var generate_notifier := $Cave/GenerateNotifier
 
 onready var low_actions := $LowAction
+onready var medium_actions := $MediumAction
 onready var high_actions := $HighAction
+
 
 func _ready():
 	randomize()
@@ -13,6 +15,9 @@ func _on_Dice_rolled(num):
 	match num:
 		3: _run_random_action(low_actions, false)
 		4: _run_random_action(low_actions, true)
+		
+		2: _run_random_action(medium_actions, false)
+		5: _run_random_action(medium_actions, true)
 		
 		1: _run_random_action(high_actions, false)
 		6: _run_random_action(high_actions, true)

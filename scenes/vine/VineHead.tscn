@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/vine/VineLine.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/vine/VineHead.gd" type="Script" id=2]
+[ext_resource path="res://scenes/vine/vine-head.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3, 4 )
+
+[node name="VineHead" type="RigidBody2D"]
+collision_layer = 64
+collision_mask = 64
+mode = 1
+script = ExtResource( 2 )
+vine_line_scene = ExtResource( 1 )
+min_vine_length = 6
+max_vine_length = 14
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -4 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="CollisionShape2D"]
+texture = ExtResource( 3 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="CollisionShape2D"]
+position = Vector2( 0, 4 )
+node_a = NodePath("../..")

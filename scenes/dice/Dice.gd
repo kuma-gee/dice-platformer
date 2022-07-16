@@ -22,6 +22,10 @@ var logger = Logger.new("Dice")
 var gravity_dir := Vector2.DOWN
 var velocity := Vector2.ZERO
 var fully_grounded = false
+var random = RandomNumberGenerator.new()
+
+func _ready():
+	random.randomize()
 
 func _process(delta):
 	if not is_on_floor():
@@ -45,7 +49,7 @@ func _rotate_to_ground(diff: int, delta: float):
 	sprite.rotation_degrees = move_toward(sprite.rotation_degrees, target_rotation, (rotation_landing_speed / needed_rotation_abs) * delta)
 
 func _roll_random_number():
-	var random_num = randi() % 6 + 1
+	var random_num = random.randi_range(1, 6)
 	logger.info("Rolled %s" % random_num)
 	
 	_set_dice_num(random_num)

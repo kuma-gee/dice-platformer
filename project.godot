@@ -231,6 +231,7 @@ jump={
 2d_physics/layer_4="player_hurtbox"
 2d_physics/layer_5="enemy_hurtbox"
 2d_physics/layer_6="player_boundary"
+2d_physics/layer_7="vine"
 2d_physics/layer_10="destroyable"
 
 [rendering]

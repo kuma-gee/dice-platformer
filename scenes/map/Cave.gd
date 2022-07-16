@@ -2,6 +2,8 @@ class_name Cave extends TileMap
 
 signal generated(last_ground)
 
+export var vine_scene: PackedScene
+
 export var torch_scene: PackedScene
 export var torch_height := 76
 export var torch_modulo := 50
@@ -23,7 +25,7 @@ var logger = Logger.new("Cave")
 var last_ceiling_block: Vector2
 var last_ground_block: Vector2
 var light_on = false
-var gap_percentage = 0.3
+var gap_percentage = 0.4
 
 func _ready():
 	_update_last_blocks()
@@ -72,17 +74,26 @@ func _build_platform():
 	var max_gap_x = gap_x + gap_size
 	
 	for x in range(1, generate_distance + 1):
-		for y in range(0, platform_height):
-			if gap_x != -1 and x >= gap_x and x <= max_gap_x:
-				continue
+		var is_in_gap_position = gap_x != -1 and x >= gap_x and x <= max_gap_x
+#
+		if is_in_gap_position:
+			continue
 			
+		for y in range(0, platform_height):
 			var pos = last_ground_block + Vector2(x, y)
 			_set_ground(pos)
-		
+			
 		for y in range(0, platform_height):
 			var pos = last_ceiling_block + Vector2(x, -y)
 			_set_ground(pos)
-
+			
+	
+#	if gap_x != -1:
+#		var vine = vine_scene.instance()
+#		add_child(vine)
+#		var tile_pos = last_ceiling_block + Vector2(gap_x, 0) + Vector2.DOWN 
+#		vine.global_position = map_to_world(tile_pos)
+#		logger.debug("Spawning vine at %s" % tile_pos)
 
 func _set_ground(pos: Vector2):
 	set_cellv(pos, platform_tile)

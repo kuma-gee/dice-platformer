@@ -13,11 +13,11 @@ collision_mask = 64
 mode = 1
 script = ExtResource( 2 )
 vine_line_scene = ExtResource( 1 )
-min_vine_length = 6
-max_vine_length = 14
+min_vine_length = 10
+max_vine_length = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -4 )
+position = Vector2( 0, 4 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="CollisionShape2D"]

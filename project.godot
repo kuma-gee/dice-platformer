@@ -84,6 +84,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-css-theme/Options.gd"
 }, {
+"base": "Camera2D",
+"class": "PlayerCamera",
+"language": "GDScript",
+"path": "res://scenes/PlayerCamera.gd"
+}, {
 "base": "InputReader",
 "class": "PlayerInput",
 "language": "GDScript",
@@ -135,6 +140,7 @@ _global_script_class_icons={
 "Logger": "",
 "OptParse": "",
 "Options": "",
+"PlayerCamera": "",
 "PlayerInput": "",
 "SoftCollision": "",
 "Stylesheet": "",

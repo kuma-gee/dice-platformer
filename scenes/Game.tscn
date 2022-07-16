@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/dice/Dice.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://scenes/PlayerCamera.gd" type="Script" id=6]
 [ext_resource path="res://scenes/map/light.png" type="Texture" id=7]
 [ext_resource path="res://scenes/actions/Lighting.gd" type="Script" id=8]
-[ext_resource path="res://scenes/enemies/Chip.tscn" type="PackedScene" id=9]
 [ext_resource path="res://shared/misc/DestroyOnLeave.gd" type="Script" id=10]
 
 [sub_resource type="Environment" id=5]
@@ -90,9 +89,6 @@ script = ExtResource( 8 )
 cave_path = NodePath("../../Cave")
 global_light_path = NodePath("../../Camera2D/GlobalLight")
 player_light_path = NodePath("../../Dice/PlayerLight")
-
-[node name="Chip" parent="." instance=ExtResource( 9 )]
-position = Vector2( 154, 120 )
 
 [connection signal="generated" from="Cave" to="." method="_on_Cave_generated"]
 [connection signal="screen_entered" from="Cave/GenerateNotifier" to="." method="_on_GenerateNotifier_screen_entered"]

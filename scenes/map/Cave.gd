@@ -20,6 +20,7 @@ var logger = Logger.new("Cave")
 
 var last_ceiling_block: Vector2
 var last_ground_block: Vector2
+var light_on = false
 
 func _ready():
 	_update_last_blocks()
@@ -81,7 +82,15 @@ func _fill_background(top_left: Vector2, bottom_right: Vector2):
 			var torch = torch_scene.instance()
 			add_child(torch)
 			torch.global_position = Vector2(world_x, torch_height)
+			torch.turn_on(light_on)
 		
 		for y in range(top_left.y, bottom_right.y + 1):
 			if get_cell(x, y) == INVALID_CELL:
 				set_cell(x, y, wall_tile)
+
+
+func set_torch_level(level: int):
+	light_on = level != 0
+	for torch in get_children():
+		if torch is Torch:
+			torch.turn_on(light_on)

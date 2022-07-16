@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/dice/Dice.tscn" type="PackedScene" id=2]
@@ -7,11 +7,14 @@
 [ext_resource path="res://scenes/map/global_light.png" type="Texture" id=5]
 [ext_resource path="res://scenes/PlayerCamera.gd" type="Script" id=6]
 [ext_resource path="res://scenes/map/light.png" type="Texture" id=7]
+[ext_resource path="res://scenes/actions/Lighting.gd" type="Script" id=8]
 
 [sub_resource type="Environment" id=5]
 background_mode = 4
 glow_enabled = true
 glow_levels/3 = false
+glow_levels/5 = false
+glow_levels/7 = true
 glow_strength = 0.8
 glow_bloom = 0.1
 glow_blend_mode = 0
@@ -50,7 +53,6 @@ shape = SubResource( 4 )
 [node name="GlobalLight" type="Light2D" parent="Camera2D"]
 scale = Vector2( 39.75, 22.75 )
 texture = ExtResource( 5 )
-energy = 0.0
 
 [node name="Dice" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -237 )
@@ -64,6 +66,14 @@ texture_scale = 3.0
 [node name="CameraSpeed" type="Node" parent="LowAction"]
 script = ExtResource( 4 )
 camera_path = NodePath("../../Camera2D")
+
+[node name="HighAction" type="Node" parent="."]
+
+[node name="Lighting" type="Node" parent="HighAction"]
+script = ExtResource( 8 )
+cave_path = NodePath("../../Cave")
+global_light_path = NodePath("../../Camera2D/GlobalLight")
+player_light_path = NodePath("../../Dice/PlayerLight")
 
 [connection signal="generated" from="Cave" to="." method="_on_Cave_generated"]
 [connection signal="screen_entered" from="Cave/GenerateNotifier" to="." method="_on_GenerateNotifier_screen_entered"]

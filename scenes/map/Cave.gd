@@ -2,6 +2,10 @@ class_name Cave extends TileMap
 
 signal generated(last_ground)
 
+export var torch_scene: PackedScene
+export var torch_height := 76
+export var torch_modulo := 50
+
 export var generate_distance := 50
 export var platform_height := 6
 
@@ -48,7 +52,7 @@ func build_next_tiles(type: int):
 	
 	var previous_last_ceiling = last_ceiling_block
 	_update_last_blocks()
-	_fill_with_wall(previous_last_ceiling, last_ground_block)
+	_fill_background(previous_last_ceiling, last_ground_block)
 	
 	emit_signal("generated", map_to_world(last_ground_block))
 
@@ -57,7 +61,6 @@ func _build_platform():
 	
 	for x in range(1, generate_distance + 1):
 		for y in range(0, platform_height):
-			logger.debug("Pos %s/%s" % [x, y])
 			var pos = last_ground_block + Vector2(x, y)
 			_set_ground(pos)
 		
@@ -71,8 +74,14 @@ func _set_ground(pos: Vector2):
 	update_bitmask_area(pos)
 
 
-func _fill_with_wall(top_left: Vector2, bottom_right: Vector2):
+func _fill_background(top_left: Vector2, bottom_right: Vector2):
 	for x in range(top_left.x, bottom_right.x + 1):
+		if x % torch_modulo == 0:
+			var world_x = map_to_world(Vector2(x, 0)).x
+			var torch = torch_scene.instance()
+			add_child(torch)
+			torch.global_position = Vector2(world_x, torch_height)
+		
 		for y in range(top_left.y, bottom_right.y + 1):
 			if get_cell(x, y) == INVALID_CELL:
 				set_cell(x, y, wall_tile)

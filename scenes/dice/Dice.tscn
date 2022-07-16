@@ -1,31 +1,36 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://shared/input/PlayerInput.gd" type="Script" id=1]
 [ext_resource path="res://scenes/dice/dices.png" type="Texture" id=2]
 [ext_resource path="res://scenes/dice/Dice.gd" type="Script" id=3]
+[ext_resource path="res://scenes/map/shader_lit.gdshader" type="Shader" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 4 )
 
 [node name="Dice" type="KinematicBody2D"]
 script = ExtResource( 3 )
 speed = 400
 acceleration = 1000
 deacceleration = 1000
-jump_force = 900
+jump_force = 1200
 initial_gravity_force = 50
-terminal_velocity_y = 500
+terminal_velocity_y = 600
 jump_soft_cap = 500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
 texture = ExtResource( 2 )
 hframes = 7
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
 
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_PlayerInput_just_pressed"]
 [connection signal="just_released" from="PlayerInput" to="." method="_on_PlayerInput_just_released"]

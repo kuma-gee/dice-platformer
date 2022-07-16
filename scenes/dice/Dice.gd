@@ -27,7 +27,8 @@ var trying_to_ground = false
 
 func _process(delta):
 	if not is_on_floor() and not trying_to_ground:
-		rotation_degrees += rotation_speed * delta
+		var dir = sign(velocity.x) if abs(velocity.x) >= 0.01 else 1
+		rotation_degrees += dir * rotation_speed * delta
 		fully_grounded = false
 #		_set_dice_num(0)
 	else:

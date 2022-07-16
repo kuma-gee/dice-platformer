@@ -10,9 +10,10 @@ extents = Vector2( 8, 8 )
 [node name="Dice" type="KinematicBody2D"]
 script = ExtResource( 3 )
 speed = 400
-acceleration = 300
-deacceleration = 600
-initial_gravity_force = 30
+acceleration = 1000
+deacceleration = 1000
+jump_force = 900
+initial_gravity_force = 50
 terminal_velocity_y = 500
 jump_soft_cap = 500
 

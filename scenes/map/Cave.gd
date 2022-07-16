@@ -9,6 +9,8 @@ export var torch_modulo := 50
 export var generate_distance := 50
 export var platform_height := 6
 
+export var gap_size := 30
+
 onready var platform_tile = tile_set.find_tile_by_name("platform")
 onready var wall_tile = tile_set.find_tile_by_name("wall")
 
@@ -21,6 +23,7 @@ var logger = Logger.new("Cave")
 var last_ceiling_block: Vector2
 var last_ground_block: Vector2
 var light_on = false
+var gap_percentage = 0.3
 
 func _ready():
 	_update_last_blocks()
@@ -60,8 +63,19 @@ func build_next_tiles(type: int):
 func _build_platform():
 	logger.debug("Building PLATFORM for the next %s tiles" % generate_distance)
 	
+	var create_gap = randf() <= gap_percentage
+	var gap_x = -1
+	
+	if create_gap:
+		gap_x = randi() % generate_distance
+	
+	var max_gap_x = gap_x + gap_size
+	
 	for x in range(1, generate_distance + 1):
 		for y in range(0, platform_height):
+			if gap_x != -1 and x >= gap_x and x <= max_gap_x:
+				continue
+			
 			var pos = last_ground_block + Vector2(x, y)
 			_set_ground(pos)
 		
@@ -84,7 +98,7 @@ func _fill_background(top_left: Vector2, bottom_right: Vector2):
 			torch.global_position = Vector2(world_x, torch_height)
 			torch.turn_on(light_on)
 		
-		for y in range(top_left.y, bottom_right.y + 1):
+		for y in range(top_left.y - platform_height, bottom_right.y + 1 + platform_height):
 			if get_cell(x, y) == INVALID_CELL:
 				set_cell(x, y, wall_tile)
 

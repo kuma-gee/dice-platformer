@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal rolled(num)
+signal died()
 
 export var speed := 300
 export var acceleration := 200
@@ -81,3 +82,8 @@ func _on_PlayerInput_just_released(action):
 		if velocity.y < -jump_soft_cap:
 			logger.debug("Soft capping jump at %s" % velocity.y)
 			velocity.y = -jump_soft_cap
+
+
+func _on_HurtBox_hit():
+	logger.info("Player died")
+	emit_signal("died")

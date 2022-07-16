@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://shared/input/PlayerInput.gd" type="Script" id=1]
 [ext_resource path="res://scenes/dice/dices.png" type="Texture" id=2]
 [ext_resource path="res://scenes/dice/Dice.gd" type="Script" id=3]
 [ext_resource path="res://scenes/map/shader_lit.gdshader" type="Shader" id=4]
+[ext_resource path="res://shared/combat/HurtBox.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -11,7 +12,12 @@ extents = Vector2( 8, 8 )
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 4 )
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 9, 9 )
+
 [node name="Dice" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 33
 script = ExtResource( 3 )
 speed = 400
 acceleration = 1000
@@ -32,5 +38,14 @@ material = SubResource( 2 )
 texture = ExtResource( 2 )
 hframes = 7
 
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource( 3 )
+
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_PlayerInput_just_pressed"]
 [connection signal="just_released" from="PlayerInput" to="." method="_on_PlayerInput_just_released"]
+[connection signal="hit" from="HurtBox" to="." method="_on_HurtBox_hit"]

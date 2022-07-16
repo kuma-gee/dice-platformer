@@ -15,6 +15,7 @@ export var rotation_speed := 800
 export var rotation_landing_speed := 10
 
 onready var input: PlayerInput = $PlayerInput
+onready var sprite: Sprite = $Sprite
 
 var logger = Logger.new("Dice")
 var gravity_dir := Vector2.DOWN
@@ -28,6 +29,7 @@ func _process(delta):
 	if not is_on_floor() and not trying_to_ground:
 		rotation_degrees += rotation_speed * delta
 		fully_grounded = false
+#		_set_dice_num(0)
 	else:
 		var diff_to_fully_grounded = int(rotation_degrees) % 90
 		var was_fully_grounded = fully_grounded
@@ -49,8 +51,12 @@ func _rotate_to_ground(diff: int, delta: float):
 func _roll_random_number():
 	var random_num = randi() % 6 + 1
 	logger.info("Rolled %s" % random_num)
+	
+	_set_dice_num(random_num)
 	emit_signal("rolled", random_num)
 
+func _set_dice_num(num):
+	sprite.frame = num if num > 0 else 0
 
 func _physics_process(delta):
 	var dir = _get_motion()

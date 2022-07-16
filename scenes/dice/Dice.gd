@@ -12,7 +12,7 @@ export var terminal_velocity_y := 300
 export var jump_soft_cap := 100
 
 export var rotation_speed := 800
-export var rotation_landing_speed := 10
+export var rotation_landing_speed := 10000
 
 onready var input: PlayerInput = $PlayerInput
 onready var sprite: Sprite = $Sprite
@@ -22,32 +22,26 @@ var gravity_dir := Vector2.DOWN
 var velocity := Vector2.ZERO
 var fully_grounded = false
 
-# Should be the safety measure to make sure you will always be grounded
-var trying_to_ground = false
-
 func _process(delta):
-	if not is_on_floor() and not trying_to_ground:
+	if not is_on_floor():
 		var dir = sign(velocity.x) if abs(velocity.x) >= 0.01 else 1
-		rotation_degrees += dir * rotation_speed * delta
+		sprite.rotation_degrees += dir * rotation_speed * delta
 		fully_grounded = false
-#		_set_dice_num(0)
 	else:
-		var diff_to_fully_grounded = int(rotation_degrees) % 90
+		var diff_to_fully_grounded = int(sprite.rotation_degrees) % 90
 		var was_fully_grounded = fully_grounded
 		fully_grounded = diff_to_fully_grounded == 0
 		
 		if not fully_grounded:
-			trying_to_ground = true
 			_rotate_to_ground(diff_to_fully_grounded, delta)
 		elif not was_fully_grounded:
 			_roll_random_number()
-			trying_to_ground = false
 
 func _rotate_to_ground(diff: int, delta: float):
-	var target_rotation = rotation_degrees - diff
+	var target_rotation = sprite.rotation_degrees - diff
 	var needed_rotation_abs = abs(diff)
-
-	rotation_degrees = move_toward(rotation_degrees, target_rotation, rotation_landing_speed * needed_rotation_abs * delta)
+	
+	sprite.rotation_degrees = move_toward(sprite.rotation_degrees, target_rotation, (rotation_landing_speed / needed_rotation_abs) * delta)
 
 func _roll_random_number():
 	var random_num = randi() % 6 + 1

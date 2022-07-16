@@ -15,4 +15,4 @@ func _on_GenerateNotifier_screen_entered():
 
 
 func _on_Cave_generated(last_ground: Vector2):
-	generate_notifier.global_position.x = last_ground.x
+	generate_notifier.global_position.x = last_ground.x - 100

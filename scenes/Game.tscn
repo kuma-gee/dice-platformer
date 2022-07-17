@@ -164,23 +164,29 @@ theme = ExtResource( 14 )
 
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOver/GameOver"]
 margin_left = 924.0
-margin_top = 505.0
+margin_top = 482.0
 margin_right = 1080.0
-margin_bottom = 575.0
+margin_bottom = 597.0
 custom_constants/separation = 20
 
 [node name="Label" type="Label" parent="CanvasLayer/GameOver/GameOver/HBoxContainer"]
-margin_left = -62.0
-margin_top = -13.0
-margin_right = 62.0
-margin_bottom = 12.0
+margin_right = 156.0
+margin_bottom = 25.0
 text = "Game Over"
+align = 1
 script = ExtResource( 15 )
 relative_font_size = 2.0
 
+[node name="Score" type="Label" parent="CanvasLayer/GameOver/GameOver/HBoxContainer"]
+margin_top = 45.0
+margin_right = 156.0
+margin_bottom = 70.0
+align = 1
+
 [node name="Button" type="Button" parent="CanvasLayer/GameOver/GameOver/HBoxContainer"]
-margin_right = 40.0
-margin_bottom = 25.0
+margin_top = 90.0
+margin_right = 156.0
+margin_bottom = 115.0
 text = "Back to menu"
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]

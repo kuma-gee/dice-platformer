@@ -7,7 +7,11 @@ onready var low_actions := $LowAction
 onready var medium_actions := $MediumAction
 onready var high_actions := $HighAction
 
+onready var player := $Dice
 onready var player_death := $PlayerDeath
+onready var score_label := $CanvasLayer/GameOver/GameOver/HBoxContainer/Score
+
+var logger = Logger.new("Game")
 
 func _ready():
 	randomize()
@@ -48,4 +52,10 @@ func _on_GroundFall_body_entered(body):
 
 
 func _on_Dice_died():
+	var player_x = player.global_position.x
+	var score = (int(player_x) / 100)
+	
+	logger.info("Player reached position %s and a score of %s" % [player_x, score])
+	
+	score_label.text = "Score: %s" % score
 	player_death.play()

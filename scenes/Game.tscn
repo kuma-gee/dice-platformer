@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/dice/Dice.tscn" type="PackedScene" id=2]
@@ -12,6 +12,9 @@
 [ext_resource path="res://shared/misc/DestroyOnLeave.gd" type="Script" id=10]
 [ext_resource path="res://scenes/enemies/Card.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/enemies/Chip.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/PlayerDeath.gd" type="Script" id=13]
+[ext_resource path="res://theme/theme.tres" type="Theme" id=14]
+[ext_resource path="res://shared/menu/ThemeOverride.gd" type="Script" id=15]
 
 [sub_resource type="Environment" id=5]
 background_mode = 4
@@ -122,8 +125,63 @@ cave_path = NodePath("../../Cave")
 global_light_path = NodePath("../../Camera2D/GlobalLight")
 player_light_path = NodePath("../../Dice/PlayerLight")
 
+[node name="PlayerDeath" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 13 )
+player_path = NodePath("../Dice")
+
+[node name="Timer" type="Timer" parent="PlayerDeath"]
+wait_time = 0.8
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="PlayerDeath"]
+wait_time = 2.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOver" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GameOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.54902 )
+
+[node name="GameOver" type="CenterContainer" parent="CanvasLayer/GameOver"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 84.0
+theme = ExtResource( 14 )
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOver/GameOver"]
+margin_left = 924.0
+margin_top = 505.0
+margin_right = 1080.0
+margin_bottom = 575.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOver/GameOver/HBoxContainer"]
+margin_left = -62.0
+margin_top = -13.0
+margin_right = 62.0
+margin_bottom = 12.0
+text = "Game Over"
+script = ExtResource( 15 )
+relative_font_size = 2.0
+
+[node name="Button" type="Button" parent="CanvasLayer/GameOver/GameOver/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 25.0
+text = "Back to menu"
+
 [connection signal="generated" from="Cave" to="." method="_on_Cave_generated"]
 [connection signal="screen_entered" from="Cave/GenerateNotifier" to="." method="_on_GenerateNotifier_screen_entered"]
 [connection signal="body_entered" from="Camera2D/GroundFall" to="." method="_on_GroundFall_body_entered"]
 [connection signal="died" from="Dice" to="." method="_on_Dice_died"]
 [connection signal="rolled" from="Dice" to="." method="_on_Dice_rolled"]
+[connection signal="timeout" from="PlayerDeath/Timer" to="PlayerDeath" method="_on_Timer_timeout"]
+[connection signal="timeout" from="PlayerDeath/Timer2" to="PlayerDeath" method="_on_Timer2_timeout"]
+[connection signal="pressed" from="CanvasLayer/GameOver/GameOver/HBoxContainer/Button" to="PlayerDeath" method="_on_Button_pressed"]

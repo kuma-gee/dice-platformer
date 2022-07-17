@@ -7,6 +7,7 @@ onready var low_actions := $LowAction
 onready var medium_actions := $MediumAction
 onready var high_actions := $HighAction
 
+onready var player_death := $PlayerDeath
 
 func _ready():
 	randomize()
@@ -47,4 +48,4 @@ func _on_GroundFall_body_entered(body):
 
 
 func _on_Dice_died():
-	pass # Replace with function body.
+	player_death.play()

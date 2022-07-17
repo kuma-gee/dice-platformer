@@ -3,6 +3,7 @@ extends Control
 onready var exit_btn := $CenterContainer/VBoxContainer/VBoxContainer/ExitBtn
 
 func _ready():
+	get_tree().paused = false
 	if OS.get_name() == "HTML5":
 		exit_btn.hide()
 

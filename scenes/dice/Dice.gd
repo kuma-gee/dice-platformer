@@ -91,3 +91,6 @@ func _on_PlayerInput_just_released(action):
 func _on_HurtBox_hit():
 	logger.info("Player died")
 	emit_signal("died")
+
+func disable_collision():
+	$CollisionShape2D.disabled = true

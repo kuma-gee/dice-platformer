@@ -15,9 +15,12 @@ export var jump_soft_cap := 100
 export var rotation_speed := 800
 export var rotation_landing_speed := 10000
 
+export var landing_particles_scene: PackedScene
+
 onready var input: PlayerInput = $PlayerInput
 onready var sprite: Sprite = $Sprite
 
+onready var ground_position := $GroundPosition
 onready var jump_sound := $JumpSound
 
 var logger = Logger.new("Dice")
@@ -43,6 +46,9 @@ func _process(delta):
 			_rotate_to_ground(diff_to_fully_grounded, delta)
 		elif not was_fully_grounded:
 			_roll_random_number()
+			var particles = landing_particles_scene.instance()
+			particles.global_position = ground_position.global_position
+			get_tree().current_scene.add_child(particles)
 
 func _rotate_to_ground(diff: int, delta: float):
 	var target_rotation = sprite.rotation_degrees - diff

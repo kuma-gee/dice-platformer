@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://shared/input/PlayerInput.gd" type="Script" id=1]
 [ext_resource path="res://scenes/dice/dices.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/map/shader_lit.gdshader" type="Shader" id=4]
 [ext_resource path="res://shared/combat/HurtBox.gd" type="Script" id=5]
 [ext_resource path="res://scenes/dice/SFX_jump1a.wav" type="AudioStream" id=6]
+[ext_resource path="res://scenes/dice/LandParticles.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -26,6 +27,7 @@ jump_force = 1200
 initial_gravity_force = 50
 terminal_velocity_y = 600
 jump_soft_cap = 500
+landing_particles_scene = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -49,6 +51,9 @@ shape = SubResource( 3 )
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -15.0
+
+[node name="GroundPosition" type="Position2D" parent="."]
+position = Vector2( 0, 9 )
 
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_PlayerInput_just_pressed"]
 [connection signal="just_released" from="PlayerInput" to="." method="_on_PlayerInput_just_released"]

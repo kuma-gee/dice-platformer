@@ -25,7 +25,7 @@ var logger = Logger.new("Cave")
 var last_ceiling_block: Vector2
 var last_ground_block: Vector2
 var light_on = false
-var gap_percentage = 0.4
+var gap_percentage = 0.5
 
 func _ready():
 	_update_last_blocks()
@@ -69,7 +69,7 @@ func _build_platform():
 	var gap_x = -1
 	
 	if create_gap:
-		gap_x = randi() % generate_distance
+		gap_x = randi() % (generate_distance - 5)
 	
 	var max_gap_x = gap_x + gap_size
 	

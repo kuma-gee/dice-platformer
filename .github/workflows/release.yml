@@ -17,6 +17,7 @@ jobs:
     env:
       GAME: dice-break
       CHANNEL: ${{matrix.channel}}
+      GODOT_VERSION: 3.4.4
     steps:
       - uses: actions/checkout@v2
         with:

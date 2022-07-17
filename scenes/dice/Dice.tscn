@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://shared/input/PlayerInput.gd" type="Script" id=1]
 [ext_resource path="res://scenes/dice/dices.png" type="Texture" id=2]
 [ext_resource path="res://scenes/dice/Dice.gd" type="Script" id=3]
 [ext_resource path="res://scenes/map/shader_lit.gdshader" type="Shader" id=4]
 [ext_resource path="res://shared/combat/HurtBox.gd" type="Script" id=5]
+[ext_resource path="res://scenes/dice/SFX_jump1a.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -44,6 +45,10 @@ script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource( 3 )
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -15.0
 
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_PlayerInput_just_pressed"]
 [connection signal="just_released" from="PlayerInput" to="." method="_on_PlayerInput_just_released"]

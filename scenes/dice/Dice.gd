@@ -18,6 +18,8 @@ export var rotation_landing_speed := 10000
 onready var input: PlayerInput = $PlayerInput
 onready var sprite: Sprite = $Sprite
 
+onready var jump_sound := $JumpSound
+
 var logger = Logger.new("Dice")
 var gravity_dir := Vector2.DOWN
 var velocity := Vector2.ZERO
@@ -79,6 +81,7 @@ func _get_motion() -> Vector2:
 func _on_PlayerInput_just_pressed(action):
 	if action == "jump" and fully_grounded:
 		velocity -= gravity_dir * jump_force
+		jump_sound.play()
 
 
 func _on_PlayerInput_just_released(action):

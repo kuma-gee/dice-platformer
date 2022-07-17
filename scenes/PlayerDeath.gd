@@ -6,6 +6,7 @@ onready var player: KinematicBody2D = get_node(player_path)
 onready var timer := $Timer
 onready var show_game_over_timer := $Timer2
 onready var game_over := $"../CanvasLayer/GameOver"
+onready var death_sound := $DeathSound
 
 var playing = false
 var velocity = Vector2.ZERO
@@ -29,6 +30,7 @@ func _process(delta):
 
 func _on_Timer_timeout():
 	playing = true
+	death_sound.play()
 
 
 func _on_Timer2_timeout():

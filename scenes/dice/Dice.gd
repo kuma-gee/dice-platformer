@@ -52,9 +52,8 @@ func _process(delta):
 
 func _rotate_to_ground(diff: int, delta: float):
 	var target_rotation = sprite.rotation_degrees - diff
-	var needed_rotation_abs = abs(diff)
+	sprite.rotation_degrees = target_rotation
 	
-	sprite.rotation_degrees = move_toward(sprite.rotation_degrees, target_rotation, (rotation_landing_speed / needed_rotation_abs) * delta)
 
 func _roll_random_number():
 	var random_num = random.randi_range(1, 6)

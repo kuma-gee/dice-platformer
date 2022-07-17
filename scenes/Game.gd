@@ -40,3 +40,11 @@ func _on_GenerateNotifier_screen_entered():
 
 func _on_Cave_generated(last_ground: Vector2):
 	generate_notifier.global_position.x = last_ground.x - 100
+
+
+func _on_GroundFall_body_entered(body):
+	_on_Dice_died()
+
+
+func _on_Dice_died():
+	pass # Replace with function body.

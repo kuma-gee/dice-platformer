@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://theme/theme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/menu/StartMenu.gd" type="Script" id=2]
+[ext_resource path="res://shared/menu/ThemeOverride.gd" type="Script" id=3]
+[ext_resource path="res://scenes/menu/dice-6.png" type="Texture" id=4]
+
+[node name="StartMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 859.0
+margin_top = 472.0
+margin_right = 1061.0
+margin_bottom = 607.0
+custom_constants/separation = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_right = 202.0
+margin_bottom = 25.0
+custom_constants/separation = 70
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+margin_right = 132.0
+margin_bottom = 25.0
+text = "Dice Break"
+script = ExtResource( 3 )
+relative_font_size = 3.0
+
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 202.0
+margin_right = 202.0
+margin_bottom = 25.0
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -25.0
+rect_rotation = 45.0
+rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 8, 8 )
+texture = ExtResource( 4 )
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 75.0
+margin_right = 202.0
+margin_bottom = 135.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="StartBtn" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+margin_right = 202.0
+margin_bottom = 25.0
+text = "Start"
+
+[node name="ExitBtn" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+margin_top = 35.0
+margin_right = 202.0
+margin_bottom = 60.0
+text = "Exit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/StartBtn" to="." method="_on_StartBtn_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]

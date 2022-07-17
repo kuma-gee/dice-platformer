@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/dice/Dice.tscn" type="PackedScene" id=2]
@@ -29,6 +29,9 @@ extents = Vector2( 19, 282 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 363, 186 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 475, 10 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -64,7 +67,6 @@ scale = Vector2( 39.75, 22.75 )
 texture = ExtResource( 5 )
 
 [node name="DestroyOnLeave" type="Area2D" parent="Camera2D"]
-visible = false
 collision_layer = 0
 collision_mask = 516
 script = ExtResource( 10 )
@@ -78,8 +80,16 @@ position = Vector2( 348, -49 )
 [node name="GroundEnemySpawn" type="Position2D" parent="Camera2D"]
 position = Vector2( 344, 116 )
 
+[node name="GroundFall" type="Area2D" parent="Camera2D"]
+position = Vector2( 0, 217 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/GroundFall"]
+shape = SubResource( 7 )
+
 [node name="Dice" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, -237 )
+position = Vector2( 0, -405 )
 
 [node name="PlayerLight" type="Light2D" parent="Dice"]
 texture = ExtResource( 7 )
@@ -114,4 +124,6 @@ player_light_path = NodePath("../../Dice/PlayerLight")
 
 [connection signal="generated" from="Cave" to="." method="_on_Cave_generated"]
 [connection signal="screen_entered" from="Cave/GenerateNotifier" to="." method="_on_GenerateNotifier_screen_entered"]
+[connection signal="body_entered" from="Camera2D/GroundFall" to="." method="_on_GroundFall_body_entered"]
+[connection signal="died" from="Dice" to="." method="_on_Dice_died"]
 [connection signal="rolled" from="Dice" to="." method="_on_Dice_rolled"]

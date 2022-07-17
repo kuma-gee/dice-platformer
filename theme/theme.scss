@@ -1,3 +1,14 @@
 body {
-    font-family: url(jackeyfont.ttf);
+  font-family: url(jackeyfont.tres);
+}
+
+Button {
+  background: Color(0, 0, 0, 0);
+  color: Color(1, 1, 1, 0.5);
+}
+
+Button:hover,
+Button:presssed {
+  background: Color(0, 0, 0, 0);
+  color: Color(1, 1, 1, 1);
 }
